@@ -25,17 +25,17 @@ function Pomodoro() {
       alarmSound.play();
       if (currentMode === "Focusing") {
         setCurrentMode("On Break")
-        setRemainingTime(breakTime * 60);
+        setRemainingTime(prevTime => prevTime * 60);
       } else if (currentMode === "On Break") {
         setCurrentMode("Focusing")
-        setRemainingTime(focusTime * 60)
+        setRemainingTime(prevTime => prevTime * 60)
       }
     }
   }, [remainingTime]);
   //Every second it ticks down one
   useInterval(
     () => {
-      setRemainingTime(remainingTime - 1);
+      setRemainingTime(prevTime => prevTime - 1);
     },
     isTimerRunning ? 1000 : null
   )
